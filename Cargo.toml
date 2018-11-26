@@ -1,0 +1,9 @@
+[package]
+name = "golf_tee_game"
+version = "0.1.0"
+authors = ["ethan"]
+edition = "2018"
+
+[dependencies]
+maplit = "1.0"
+lazy_static = "1.2"

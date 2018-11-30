@@ -15,12 +15,17 @@ impl Game {
     /// # Errors
     ///
     /// Returns an error if the size of the `state` and `legal_moves` collections
-    /// are different, as they must be the same size to define a game.
+    /// are different, as they must be the same size to define a game. Returns an
+    /// error if every position is full. Returns an error if either length is not
+    /// triangular.
     pub fn new(
         state: GameState,
         legal_moves: LegalMoves,
     ) -> Result<Self, Box<dyn std::error::Error>> {
         // TODO: Validate
+        // Cannot be all full
+        // Cannot be size other than triangular
+        // Lengths cannot be different
         Ok(Game { legal_moves, state })
     }
 
@@ -37,4 +42,13 @@ impl Game {
         //     .ok_or(format!("Invalid position specified: {}", position))?)
         Ok(true)
     }
+}
+
+// =================================================================================================
+// Tests
+// =================================================================================================
+
+#[test]
+fn test_game_validation() {
+    GameState(vec![false, true, true]);
 }

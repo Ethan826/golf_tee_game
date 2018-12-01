@@ -23,5 +23,5 @@ use std::collections::HashSet;
 ///     leapt_space: 2,
 ///     destination_space: 5,
 /// };
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct PositionData(pub HashSet<GameMove>);

@@ -1,4 +1,3 @@
-use std::collections::HashSet;
 #[macro_use]
 extern crate maplit;
 #[macro_use]
@@ -10,6 +9,35 @@ pub mod game_state;
 pub mod legal_moves;
 pub mod position_data;
 pub mod standard_game;
+
+use std::collections::HashSet;
+use std::{error::Error, fmt};
+
+#[derive(Debug, PartialEq)]
+pub enum GameError {
+    InvalidGameSize,
+    InvalidPosition,
+    InvalidGameState,
+    InvalidMove,
+}
+
+impl Error for GameError {}
+
+impl fmt::Display for GameError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            GameError::InvalidGameSize => write!(
+                f,
+                "Invalid game size. The game board must be a triangular like 1, 3, 6, 10, or 15."
+            ),
+            GameError::InvalidPosition => {
+                write!(f, "Invalid game position. Game positions are zero-indexed.")
+            }
+            GameError::InvalidGameState => write!(f, "Invalid game state."),
+            GameError::InvalidMove => write!(f, "Invalid game move."),
+        }
+    }
+}
 
 pub fn is_triangular(number: usize) -> bool {
     // See http://mathforum.org/library/drmath/view/57162.html
@@ -34,7 +62,7 @@ fn isqrt(n: usize) -> usize {
 fn is_perfect_odd_sqrt(n: usize) -> bool {
     match n & 0xf {
         0 | 1 | 4 | 9 => {
-            let t = Self::isqrt(n);
+            let t = isqrt(n);
             t * t == n && n % 2 != 0
         }
         _ => false,

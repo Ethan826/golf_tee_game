@@ -3,138 +3,138 @@ use crate::legal_moves::LegalMoves;
 use crate::position_data::PositionData;
 
 lazy_static! {
-    pub static ref STANDARD_MOVES: LegalMoves = LegalMoves(vec![
-                // 00
+    pub static ref STANDARD_MOVES: Vec<PositionData> = vec![
+                // 0
                 PositionData(hashset![
                     GameMove {
-                        leapt_space: 01,
-                        destination_space: 03,
+                        leapt_space: 1,
+                        destination_space: 3,
                     },
                     GameMove {
-                        leapt_space: 02,
-                        destination_space: 05,
+                        leapt_space: 2,
+                        destination_space: 5,
                     },
                 ]),
-                // 01
+                // 1
                 PositionData(hashset![
                     GameMove {
-                        leapt_space: 03,
-                        destination_space: 06,
+                        leapt_space: 3,
+                        destination_space: 6,
                     },
                     GameMove {
-                        leapt_space: 04,
-                        destination_space: 08,
+                        leapt_space: 4,
+                        destination_space: 8,
                     },
                 ]),
-                // 02
+                // 2
                 PositionData(hashset![
                     GameMove {
-                        leapt_space: 04,
-                        destination_space: 07,
+                        leapt_space: 4,
+                        destination_space: 7,
                     },
                     GameMove {
-                        leapt_space: 05,
-                        destination_space: 09,
+                        leapt_space: 5,
+                        destination_space: 9,
                     },
                 ]),
-                // 03
+                // 3
                 PositionData(hashset![
                     GameMove {
-                        leapt_space: 01,
-                        destination_space: 00,
+                        leapt_space: 1,
+                        destination_space: 0,
                     },
                     GameMove {
-                        leapt_space: 06,
+                        leapt_space: 6,
                         destination_space: 10,
                     },
                     GameMove {
-                        leapt_space: 04,
-                        destination_space: 05,
+                        leapt_space: 4,
+                        destination_space: 5,
                     },
                     GameMove {
-                        leapt_space: 07,
+                        leapt_space: 7,
                         destination_space: 12,
                     },
                 ]),
-                // 04
+                // 4
                 PositionData(hashset![
                     GameMove {
-                        leapt_space: 07,
+                        leapt_space: 7,
                         destination_space: 11,
                     },
                     GameMove {
-                        leapt_space: 08,
+                        leapt_space: 8,
                         destination_space: 13,
                     },
                 ]),
-                // 05
+                // 5
                 PositionData(hashset![
                     GameMove {
-                        leapt_space: 02,
-                        destination_space: 00,
+                        leapt_space: 2,
+                        destination_space: 0,
                     },
                     GameMove {
-                        leapt_space: 04,
-                        destination_space: 03,
+                        leapt_space: 4,
+                        destination_space: 3,
                     },
                     GameMove {
-                        leapt_space: 08,
+                        leapt_space: 8,
                         destination_space: 12,
                     },
                     GameMove {
-                        leapt_space: 09,
+                        leapt_space: 9,
                         destination_space: 14,
                     },
                 ]),
-                // 06
+                // 6
                 PositionData(hashset![
                     GameMove {
-                        leapt_space: 03,
-                        destination_space: 01,
+                        leapt_space: 3,
+                        destination_space: 1,
                     },
                     GameMove {
-                        leapt_space: 07,
-                        destination_space: 08,
+                        leapt_space: 7,
+                        destination_space: 8,
                     },
                 ]),
-                // 07
+                // 7
                 PositionData(hashset![
                     GameMove {
-                        leapt_space: 04,
-                        destination_space: 02,
+                        leapt_space: 4,
+                        destination_space: 2,
                     },
                     GameMove {
-                        leapt_space: 08,
-                        destination_space: 09,
+                        leapt_space: 8,
+                        destination_space: 9,
                     },
                 ]),
-                // 08
+                // 8
                 PositionData(hashset![
                     GameMove {
-                        leapt_space: 04,
-                        destination_space: 01,
+                        leapt_space: 4,
+                        destination_space: 1,
                     },
                     GameMove {
-                        leapt_space: 07,
-                        destination_space: 06,
+                        leapt_space: 7,
+                        destination_space: 6,
                     },
                 ]),
-                // 09
+                // 9
                 PositionData(hashset![
                     GameMove {
-                        leapt_space: 05,
-                        destination_space: 02,
+                        leapt_space: 5,
+                        destination_space: 2,
                     },
                     GameMove {
-                        leapt_space: 08,
-                        destination_space: 07,
+                        leapt_space: 8,
+                        destination_space: 7,
                     },
                 ]),
                 // 10
                 PositionData(hashset![
                     GameMove {
-                        leapt_space: 06,
-                        destination_space: 03,
+                        leapt_space: 6,
+                        destination_space: 3,
                     },
                     GameMove {
                         leapt_space: 11,
@@ -144,8 +144,8 @@ lazy_static! {
                 // 11
                 PositionData(hashset![
                     GameMove {
-                        leapt_space: 07,
-                        destination_space: 04,
+                        leapt_space: 7,
+                        destination_space: 4,
                     },
                     GameMove {
                         leapt_space: 12,
@@ -159,12 +159,12 @@ lazy_static! {
                         destination_space: 10,
                     },
                     GameMove {
-                        leapt_space: 07,
-                        destination_space: 03,
+                        leapt_space: 7,
+                        destination_space: 3,
                     },
                     GameMove {
-                        leapt_space: 08,
-                        destination_space: 05,
+                        leapt_space: 8,
+                        destination_space: 5,
                     },
                     GameMove {
                         leapt_space: 13,
@@ -178,8 +178,8 @@ lazy_static! {
                         destination_space: 11,
                     },
                     GameMove {
-                        leapt_space: 08,
-                        destination_space: 04,
+                        leapt_space: 8,
+                        destination_space: 4,
                     },
                 ]),
                 // 14
@@ -189,9 +189,9 @@ lazy_static! {
                         destination_space: 12,
                     },
                     GameMove {
-                        leapt_space: 09,
-                        destination_space: 05,
+                        leapt_space: 9,
+                        destination_space: 5,
                     },
                 ]),
-        ]);
+        ];
 }

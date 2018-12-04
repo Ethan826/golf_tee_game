@@ -1,4 +1,4 @@
-use crate::position_data::PositionData;
+use super::position_data::PositionData;
 use crate::{is_triangular, GameError};
 
 /// Represents all the legal moves for a particular game.
@@ -59,14 +59,14 @@ fn test_legal_moves_new_invalid_size() {
 
 #[test]
 fn test_legal_moves_position_data_valid() {
-    use crate::standard_game::STANDARD_MOVES;
+    use super::standard_game::STANDARD_MOVES;
     let subject = LegalMoves::new(STANDARD_MOVES.to_vec()).unwrap();
     assert!(subject.position_data(1).is_ok());
 }
 
 #[test]
 fn test_legal_moves_position_data_invalid() {
-    use crate::standard_game::STANDARD_MOVES;
+    use super::standard_game::STANDARD_MOVES;
     let subject = LegalMoves::new(STANDARD_MOVES.to_vec()).unwrap();
     assert!(subject.position_data(19).is_err());
 }

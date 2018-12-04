@@ -1,6 +1,6 @@
-use crate::game_move::GameMove;
-use crate::legal_moves::LegalMoves;
-use crate::position_data::PositionData;
+use super::game_move::GameMove;
+use super::legal_moves::LegalMoves;
+use super::position_data::PositionData;
 
 lazy_static! {
     pub static ref STANDARD_MOVES: Vec<PositionData> = vec![

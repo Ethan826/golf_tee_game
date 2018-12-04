@@ -1,4 +1,4 @@
-use crate::game_move::GameMove;
+use super::game_move::GameMove;
 use std::collections::HashSet;
 
 /// Represents the legal moves from a given position on the game board.
@@ -10,7 +10,7 @@ use std::collections::HashSet;
 /// ```
 /// the legal moves from position 0 are
 /// ```
-/// # use golf_tee_game::game_move::GameMove;
+/// # use golf_tee_game::game::game_move::GameMove;
 /// GameMove {
 ///     leapt_space: 1,
 ///     destination_space: 3,
@@ -18,7 +18,7 @@ use std::collections::HashSet;
 /// ```
 /// and
 /// ```
-/// # use golf_tee_game::game_move::GameMove;
+/// # use golf_tee_game::game::game_move::GameMove;
 /// GameMove {
 ///     leapt_space: 2,
 ///     destination_space: 5,

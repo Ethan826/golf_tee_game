@@ -4,11 +4,7 @@ extern crate maplit;
 extern crate lazy_static;
 
 pub mod game;
-pub mod game_move;
-pub mod game_state;
-pub mod legal_moves;
-pub mod position_data;
-pub mod standard_game;
+pub mod logic;
 
 use std::collections::HashSet;
 use std::{error::Error, fmt};

@@ -1,5 +1,6 @@
-use crate::game_state::GameState;
-use crate::legal_moves::LegalMoves;
+use super::game_state::GameState;
+use super::legal_moves::LegalMoves;
+use super::position_data::PositionData;
 use crate::GameError;
 
 /// Represents a game's state and that game's rules.
@@ -34,6 +35,21 @@ impl Game {
     pub fn is_occupied(&self, position: usize) -> Result<bool, GameError> {
         self.state.is_occupied(position)
     }
+
+    fn available_moves(&self) {
+        self.state.iter();
+    }
+
+    fn available_moves_from_position(
+        &self,
+        position: usize,
+    ) -> Result<Option<&PositionData>, GameError> {
+        if self.is_occupied(position)? {
+            Ok(Some(self.legal_moves.position_data(position)?))
+        } else {
+            Ok(None)
+        }
+    }
 }
 
 // =================================================================================================
@@ -42,7 +58,7 @@ impl Game {
 
 #[test]
 fn test_game_new_valid() {
-    use crate::standard_game::STANDARD_MOVES;
+    use super::standard_game::STANDARD_MOVES;
 
     let moves = LegalMoves::new(STANDARD_MOVES.to_vec()).unwrap();
     let state = GameState::new((0..moves.len()).map(|_| false).collect()).unwrap();
@@ -53,7 +69,7 @@ fn test_game_new_valid() {
 
 #[test]
 fn test_game_new_invalid() {
-    use crate::standard_game::STANDARD_MOVES;
+    use super::standard_game::STANDARD_MOVES;
 
     let state = GameState::new(vec![false, true, true]).unwrap();
     let moves = LegalMoves::new(STANDARD_MOVES.to_vec()).unwrap();

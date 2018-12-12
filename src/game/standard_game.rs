@@ -7,10 +7,12 @@ lazy_static! {
                 // 0
                 PositionData(hashset![
                     GameMove {
+                        starting_space: 0,
                         leapt_space: 1,
                         destination_space: 3,
                     },
                     GameMove {
+                        starting_space: 0,
                         leapt_space: 2,
                         destination_space: 5,
                     },
@@ -18,10 +20,12 @@ lazy_static! {
                 // 1
                 PositionData(hashset![
                     GameMove {
+                        starting_space: 1,
                         leapt_space: 3,
                         destination_space: 6,
                     },
                     GameMove {
+                        starting_space: 1,
                         leapt_space: 4,
                         destination_space: 8,
                     },
@@ -29,10 +33,12 @@ lazy_static! {
                 // 2
                 PositionData(hashset![
                     GameMove {
+                        starting_space: 2,
                         leapt_space: 4,
                         destination_space: 7,
                     },
                     GameMove {
+                        starting_space: 2,
                         leapt_space: 5,
                         destination_space: 9,
                     },
@@ -40,18 +46,22 @@ lazy_static! {
                 // 3
                 PositionData(hashset![
                     GameMove {
+                        starting_space: 3,
                         leapt_space: 1,
                         destination_space: 0,
                     },
                     GameMove {
+                        starting_space: 3,
                         leapt_space: 6,
                         destination_space: 10,
                     },
                     GameMove {
+                        starting_space: 3,
                         leapt_space: 4,
                         destination_space: 5,
                     },
                     GameMove {
+                        starting_space: 3,
                         leapt_space: 7,
                         destination_space: 12,
                     },
@@ -59,10 +69,12 @@ lazy_static! {
                 // 4
                 PositionData(hashset![
                     GameMove {
+                        starting_space: 4,
                         leapt_space: 7,
                         destination_space: 11,
                     },
                     GameMove {
+                        starting_space: 4,
                         leapt_space: 8,
                         destination_space: 13,
                     },
@@ -70,18 +82,22 @@ lazy_static! {
                 // 5
                 PositionData(hashset![
                     GameMove {
+                        starting_space: 5,
                         leapt_space: 2,
                         destination_space: 0,
                     },
                     GameMove {
+                        starting_space: 5,
                         leapt_space: 4,
                         destination_space: 3,
                     },
                     GameMove {
+                        starting_space: 5,
                         leapt_space: 8,
                         destination_space: 12,
                     },
                     GameMove {
+                        starting_space: 5,
                         leapt_space: 9,
                         destination_space: 14,
                     },
@@ -89,10 +105,12 @@ lazy_static! {
                 // 6
                 PositionData(hashset![
                     GameMove {
+                        starting_space: 6,
                         leapt_space: 3,
                         destination_space: 1,
                     },
                     GameMove {
+                        starting_space: 6,
                         leapt_space: 7,
                         destination_space: 8,
                     },
@@ -100,10 +118,12 @@ lazy_static! {
                 // 7
                 PositionData(hashset![
                     GameMove {
+                        starting_space: 7,
                         leapt_space: 4,
                         destination_space: 2,
                     },
                     GameMove {
+                        starting_space: 7,
                         leapt_space: 8,
                         destination_space: 9,
                     },
@@ -111,10 +131,12 @@ lazy_static! {
                 // 8
                 PositionData(hashset![
                     GameMove {
+                        starting_space: 8,
                         leapt_space: 4,
                         destination_space: 1,
                     },
                     GameMove {
+                        starting_space: 8,
                         leapt_space: 7,
                         destination_space: 6,
                     },
@@ -122,10 +144,12 @@ lazy_static! {
                 // 9
                 PositionData(hashset![
                     GameMove {
+                        starting_space: 9,
                         leapt_space: 5,
                         destination_space: 2,
                     },
                     GameMove {
+                        starting_space: 9,
                         leapt_space: 8,
                         destination_space: 7,
                     },
@@ -133,10 +157,12 @@ lazy_static! {
                 // 10
                 PositionData(hashset![
                     GameMove {
+                        starting_space: 10,
                         leapt_space: 6,
                         destination_space: 3,
                     },
                     GameMove {
+                        starting_space: 10,
                         leapt_space: 11,
                         destination_space: 12,
                     },
@@ -144,10 +170,12 @@ lazy_static! {
                 // 11
                 PositionData(hashset![
                     GameMove {
+                        starting_space: 11,
                         leapt_space: 7,
                         destination_space: 4,
                     },
                     GameMove {
+                        starting_space: 11,
                         leapt_space: 12,
                         destination_space: 13,
                     },
@@ -155,18 +183,22 @@ lazy_static! {
                 // 12
                 PositionData(hashset![
                     GameMove {
+                        starting_space: 12,
                         leapt_space: 11,
                         destination_space: 10,
                     },
                     GameMove {
+                        starting_space: 12,
                         leapt_space: 7,
                         destination_space: 3,
                     },
                     GameMove {
+                        starting_space: 12,
                         leapt_space: 8,
                         destination_space: 5,
                     },
                     GameMove {
+                        starting_space: 12,
                         leapt_space: 13,
                         destination_space: 14,
                     },
@@ -174,10 +206,12 @@ lazy_static! {
                 // 13
                 PositionData(hashset![
                     GameMove {
+                        starting_space: 13,
                         leapt_space: 12,
                         destination_space: 11,
                     },
                     GameMove {
+                        starting_space: 13,
                         leapt_space: 8,
                         destination_space: 4,
                     },
@@ -185,10 +219,12 @@ lazy_static! {
                 // 14
                 PositionData(hashset![
                     GameMove {
+                        starting_space: 14,
                         leapt_space: 13,
                         destination_space: 12,
                     },
                     GameMove {
+                        starting_space: 14,
                         leapt_space: 9,
                         destination_space: 5,
                     },

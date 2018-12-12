@@ -12,6 +12,7 @@ use std::collections::HashSet;
 /// ```
 /// # use golf_tee_game::game::game_move::GameMove;
 /// GameMove {
+///     starting_space: 0,
 ///     leapt_space: 1,
 ///     destination_space: 3,
 /// };
@@ -20,8 +21,15 @@ use std::collections::HashSet;
 /// ```
 /// # use golf_tee_game::game::game_move::GameMove;
 /// GameMove {
+///     starting_space: 0,
 ///     leapt_space: 2,
 ///     destination_space: 5,
 /// };
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct PositionData(pub HashSet<GameMove>);
+
+impl PositionData {
+    pub fn iter(&self) -> std::collections::hash_set::Iter<'_, GameMove> {
+        self.0.iter()
+    }
+}

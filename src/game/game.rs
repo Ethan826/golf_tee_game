@@ -64,6 +64,24 @@ impl<'a> Game<'a> {
         }
     }
 
+    pub fn all_available_moves(&self) -> Result<HashSet<&GameMove>, GameError> {
+        Ok(self.state.iter().enumerate().try_fold(
+            HashSet::with_capacity(self.state.len()),
+            |acc, (position, is_occupied)| {
+                if *is_occupied {
+                    self.available_moves_from_position(position).map(|moves| ) {
+                        Ok(moves) => acc.union(&moves).map(|x| x.to_owned(
+                        Err(e) => 
+                    }
+
+                    acc.union(&available_moves).map(|x| x.to_owned()).collect()
+                } else {
+                    acc
+                }
+            },
+        ))
+    }
+
     fn is_legal_move(&self, game_move: &GameMove) -> Result<bool, GameError> {
         Ok(self.state.is_occupied(game_move.starting_space)?
             && self.state.is_occupied(game_move.leapt_space)?

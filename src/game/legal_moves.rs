@@ -24,7 +24,7 @@ impl LegalMoves {
     /// # Errors
     ///
     /// Returns an error if the position specified is not valid.
-    pub fn position_data<'a>(&'a self, position: usize) -> Result<&'a PositionData, GameError> {
+    pub fn position_data(&self, position: usize) -> Result<&PositionData, GameError> {
         match self.0.get(position) {
             Some(position_data) => Ok(position_data),
             None => Err(GameError::InvalidPosition),
@@ -34,6 +34,12 @@ impl LegalMoves {
     /// Return the length of legal moves.
     pub fn len(&self) -> usize {
         self.0.len()
+    }
+
+    // This is Clippy's idea. Query whether we want to keep it.
+    /// Return whether legal moves is empty.
+    pub fn is_empty(&self) -> bool {
+        self.0.is_empty()
     }
 }
 

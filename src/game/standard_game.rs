@@ -1,6 +1,7 @@
 use super::game_move::GameMove;
 use super::legal_moves::LegalMoves;
 use super::position_data::PositionData;
+use crate::game::game_state::GameState;
 
 lazy_static! {
     pub static ref STANDARD_MOVES: Vec<PositionData> = vec![
@@ -230,4 +231,15 @@ lazy_static! {
                     },
                 ]),
         ];
+}
+
+/// Return the args to pass to create a new game, with a specified empty spot, in
+/// a tuple.
+pub fn build_standard_game_args(empty_pos: usize) -> (GameState, LegalMoves) {
+    let mut state = (0..15).map(|_| true).collect::<Vec<_>>();
+    state[empty_pos] = false;
+    (
+        GameState::new(state).unwrap(),
+        LegalMoves::new(STANDARD_MOVES.to_vec()).unwrap(),
+    )
 }

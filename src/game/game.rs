@@ -1,7 +1,6 @@
+use super::game_move::GameMove;
 use super::game_state::GameState;
 use super::legal_moves::LegalMoves;
-use super::position_data::PositionData;
-use crate::game::game_move::GameMove;
 use crate::GameError;
 use std::collections::HashSet;
 
@@ -64,22 +63,24 @@ impl<'a> Game<'a> {
         }
     }
 
+    /// Get all the moves that can be made in the current game state.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if iterating over the board and checking for moves at
+    /// each position returns an error.
     pub fn all_available_moves(&self) -> Result<HashSet<&GameMove>, GameError> {
-        Ok(self.state.iter().enumerate().try_fold(
+        self.state.iter().enumerate().try_fold(
             HashSet::with_capacity(self.state.len()),
             |acc, (position, is_occupied)| {
                 if *is_occupied {
-                    self.available_moves_from_position(position).map(|moves| ) {
-                        Ok(moves) => acc.union(&moves).map(|x| x.to_owned(
-                        Err(e) => 
-                    }
-
-                    acc.union(&available_moves).map(|x| x.to_owned()).collect()
+                    let moves = self.available_moves_from_position(position)?;
+                    Ok(acc.union(&moves).cloned().collect())
                 } else {
-                    acc
+                    Ok(acc)
                 }
             },
-        ))
+        )
     }
 
     fn is_legal_move(&self, game_move: &GameMove) -> Result<bool, GameError> {
@@ -94,12 +95,10 @@ impl<'a> Game<'a> {
 // =================================================================================================
 
 #[cfg(test)]
-use crate::game::standard_game::STANDARD_MOVES;
+use crate::game::standard_game::*;
 
 #[test]
 fn test_game_new_valid() {
-    use super::standard_game::STANDARD_MOVES;
-
     let moves = LegalMoves::new(STANDARD_MOVES.to_vec()).unwrap();
     let state = GameState::new((0..moves.len()).map(|_| false).collect()).unwrap();
 
@@ -109,8 +108,6 @@ fn test_game_new_valid() {
 
 #[test]
 fn test_game_new_invalid() {
-    use super::standard_game::STANDARD_MOVES;
-
     let state = GameState::new(vec![false, true, true]).unwrap();
     let moves = LegalMoves::new(STANDARD_MOVES.to_vec()).unwrap();
 
@@ -168,12 +165,62 @@ fn test_available_moves_from_occupied_position_with_multiple_moves() {
     );
 }
 
-#[cfg(test)]
-fn build_standard_game_args(empty_pos: usize) -> (GameState, LegalMoves) {
-    let mut state = (0..15).map(|_| true).collect::<Vec<_>>();
-    state[empty_pos] = false;
-    (
-        GameState::new(state).unwrap(),
-        LegalMoves::new(STANDARD_MOVES.to_vec()).unwrap(),
-    )
+#[test]
+fn test_all_available_moves() {
+    let (mut game_state, legal_moves) = build_standard_game_args(3);
+    game_state.remove_tee(5).ok();
+
+    let game = Game::new(&game_state, &legal_moves).unwrap();
+    let subject = game.all_available_moves().unwrap();
+
+    assert_eq!(
+        subject,
+        hashset! {
+            &GameMove {
+                starting_space: 0,
+                leapt_space: 2,
+                destination_space: 5
+            },
+            &GameMove {
+                starting_space: 14,
+                leapt_space: 9,
+                destination_space: 5
+            },
+            &GameMove {
+                starting_space: 12,
+                leapt_space: 8,
+                destination_space: 5
+            },
+            &GameMove {
+                starting_space: 12,
+                leapt_space: 7,
+                destination_space: 3
+            },
+            &GameMove {
+                starting_space: 0,
+                leapt_space: 1,
+                destination_space: 3
+            },
+            &GameMove {
+                starting_space: 10,
+                leapt_space: 6,
+                destination_space: 3
+            },
+        }
+    );
+}
+
+#[test]
+fn test_all_available_moves_no_moves() {
+    let mut game_state = GameState::new((0..15).map(|_| false).collect::<Vec<_>>()).unwrap();
+    game_state.insert_tee(0).ok();
+    game_state.insert_tee(4).ok();
+    game_state.insert_tee(12).ok();
+    game_state.insert_tee(14).ok();
+    let legal_moves = LegalMoves::new(STANDARD_MOVES.to_vec()).unwrap();
+
+    let game = Game::new(&game_state, &legal_moves).unwrap();
+    let subject = game.all_available_moves().unwrap();
+
+    assert_eq!(subject, HashSet::with_capacity(0));
 }

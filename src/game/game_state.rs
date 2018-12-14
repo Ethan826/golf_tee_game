@@ -55,9 +55,34 @@ impl GameState {
         }
     }
 
+    /// Removes a tee from the specified position, mutating the game state.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the specified position is invalid or unoccupied.
+    pub fn insert_tee(&mut self, position: usize) -> Result<(), GameError> {
+        match self.0.get(position) {
+            Some(value) => {
+                if *value {
+                    Err(GameError::InvalidMove)
+                } else {
+                    self.0[position] = true;
+                    Ok(())
+                }
+            }
+            None => Err(GameError::InvalidMove),
+        }
+    }
+
     /// Return the number of positions on the game board.
     pub fn len(&self) -> usize {
         self.0.len()
+    }
+
+    // This is Clippy's idea. Query whether we want to keep it.
+    /// Return whether the game board is empty.
+    pub fn is_empty(&self) -> bool {
+        self.0.is_empty()
     }
 
     pub fn iter(&self) -> std::slice::Iter<'_, bool> {
@@ -111,4 +136,18 @@ fn test_game_state_remove_tee_valid() {
 fn test_game_state_remove_tee_invalid() {
     let mut state = GameState::new(vec![false, false, true]).unwrap();
     assert!(state.remove_tee(0).is_err());
+}
+
+#[test]
+fn test_game_state_insert_tee_valid() {
+    let mut state = GameState::new(vec![true, false, true]).unwrap();
+    assert!(!state.is_occupied(1).unwrap());
+    assert!(state.insert_tee(1).is_ok());
+    assert!(state.is_occupied(1).unwrap());
+}
+
+#[test]
+fn test_game_state_insert_tee_invalid() {
+    let mut state = GameState::new(vec![false, false, true]).unwrap();
+    assert!(state.insert_tee(3).is_err());
 }

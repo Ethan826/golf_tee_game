@@ -8,7 +8,7 @@ use std::collections::HashSet;
 #[derive(Debug, PartialEq, Eq)]
 pub struct Game<'a> {
     legal_moves: &'a LegalMoves,
-    state: &'a GameState,
+    state: GameState,
 }
 
 impl<'a> Game<'a> {
@@ -20,7 +20,7 @@ impl<'a> Game<'a> {
     ///
     /// Returns an error if the length of the `state` and `legal_moves`
     /// collections are different.
-    pub fn new(state: &'a GameState, legal_moves: &'a LegalMoves) -> Result<Self, GameError> {
+    pub fn new(state: GameState, legal_moves: &'a LegalMoves) -> Result<Self, GameError> {
         if legal_moves.len() == state.len() {
             Ok(Game { legal_moves, state })
         } else {
@@ -83,6 +83,20 @@ impl<'a> Game<'a> {
         )
     }
 
+    /// Return the length of the board size.
+    pub fn len(&self) -> usize {
+        self.state.len()
+    }
+
+    /// Return the number of positions that are filled.
+    pub fn filled(&self) -> usize {
+        self.state.filled()
+    }
+
+    pub fn make_move(&self, game_move: &GameMove) -> Result<Self, GameError> {
+        Game::new(self.state.make_move(game_move)?, self.legal_moves)
+    }
+
     fn is_legal_move(&self, game_move: &GameMove) -> Result<bool, GameError> {
         Ok(self.state.is_occupied(game_move.starting_space)?
             && self.state.is_occupied(game_move.leapt_space)?
@@ -102,7 +116,7 @@ fn test_game_new_valid() {
     let moves = LegalMoves::new(STANDARD_MOVES.to_vec()).unwrap();
     let state = GameState::new((0..moves.len()).map(|_| false).collect()).unwrap();
 
-    let subject = Game::new(&state, &moves);
+    let subject = Game::new(state, &moves);
     assert!(subject.is_ok());
 }
 
@@ -111,14 +125,14 @@ fn test_game_new_invalid() {
     let state = GameState::new(vec![false, true, true]).unwrap();
     let moves = LegalMoves::new(STANDARD_MOVES.to_vec()).unwrap();
 
-    let subject = Game::new(&state, &moves);
+    let subject = Game::new(state, &moves);
     assert!(subject.is_err());
 }
 
 #[test]
 fn test_available_moves_from_unoccupied_position() {
     let (game_state, legal_moves) = build_standard_game_args(0);
-    let game = Game::new(&game_state, &legal_moves).unwrap();
+    let game = Game::new(game_state, &legal_moves).unwrap();
     let subject = game.available_moves_from_position(0).unwrap();
 
     assert_eq!(subject, hashset![]);
@@ -127,7 +141,7 @@ fn test_available_moves_from_unoccupied_position() {
 #[test]
 fn test_available_moves_from_occupied_position_with_one_move() {
     let (game_state, legal_moves) = build_standard_game_args(1);
-    let game = Game::new(&game_state, &legal_moves).unwrap();
+    let game = Game::new(game_state, &legal_moves).unwrap();
     let subject = game.available_moves_from_position(6).unwrap();
 
     assert_eq!(
@@ -142,10 +156,10 @@ fn test_available_moves_from_occupied_position_with_one_move() {
 
 #[test]
 fn test_available_moves_from_occupied_position_with_multiple_moves() {
-    let (mut game_state, legal_moves) = build_standard_game_args(3);
-    game_state.remove_tee(5).ok();
+    let (game_state, legal_moves) = build_standard_game_args(3);
+    let game_state = game_state.remove_tee(5).unwrap();
 
-    let game = Game::new(&game_state, &legal_moves).unwrap();
+    let game = Game::new(game_state, &legal_moves).unwrap();
     let subject = game.available_moves_from_position(0).unwrap();
 
     assert_eq!(
@@ -167,10 +181,10 @@ fn test_available_moves_from_occupied_position_with_multiple_moves() {
 
 #[test]
 fn test_all_available_moves() {
-    let (mut game_state, legal_moves) = build_standard_game_args(3);
-    game_state.remove_tee(5).ok();
+    let (game_state, legal_moves) = build_standard_game_args(3);
+    let game_state = game_state.remove_tee(5).unwrap();
 
-    let game = Game::new(&game_state, &legal_moves).unwrap();
+    let game = Game::new(game_state, &legal_moves).unwrap();
     let subject = game.all_available_moves().unwrap();
 
     assert_eq!(
@@ -212,14 +226,14 @@ fn test_all_available_moves() {
 
 #[test]
 fn test_all_available_moves_no_moves() {
-    let mut game_state = GameState::new((0..15).map(|_| false).collect::<Vec<_>>()).unwrap();
-    game_state.insert_tee(0).ok();
-    game_state.insert_tee(4).ok();
-    game_state.insert_tee(12).ok();
-    game_state.insert_tee(14).ok();
+    let game_state = GameState::new((0..15).map(|_| false).collect::<Vec<_>>()).unwrap();
+    let game_state = game_state.insert_tee(0).unwrap();
+    let game_state = game_state.insert_tee(4).unwrap();
+    let game_state = game_state.insert_tee(12).unwrap();
+    let game_state = game_state.insert_tee(14).unwrap();
     let legal_moves = LegalMoves::new(STANDARD_MOVES.to_vec()).unwrap();
 
-    let game = Game::new(&game_state, &legal_moves).unwrap();
+    let game = Game::new(game_state, &legal_moves).unwrap();
     let subject = game.all_available_moves().unwrap();
 
     assert_eq!(subject, HashSet::with_capacity(0));

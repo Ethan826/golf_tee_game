@@ -119,7 +119,7 @@ impl GameState {
         self.filled
     }
 
-    fn filled_positions(state: &Vec<bool>) -> usize {
+    fn filled_positions(state: &[bool]) -> usize {
         state.iter().filter(|pos| **pos).count()
     }
 }

@@ -6,7 +6,6 @@ extern crate lazy_static;
 pub mod game;
 pub mod logic;
 
-use std::collections::HashSet;
 use std::{error::Error, fmt};
 
 #[derive(Debug, PartialEq)]

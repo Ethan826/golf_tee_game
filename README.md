@@ -5,11 +5,15 @@ Solver for
 
 ![golf tee game image](http://i.imgur.com/5eCYvIy.jpg)
 
+This is not yet set up for a good UI experience. You need to edit the `main.rs`
+file to choose what functionality to use. It’s currently set up to give you all
+winning games starting with a vertex open.
+
 Interesting things I’ve learned
 -------------------------------
 
-There the most solutions are for this kind of game (starting with an
-open space at the middle of an outer row), 85,258:
+There are the most solutions are for this kind of game (starting with an open
+space at the middle of an outer row), 85,258:
 
         x
        x x
@@ -18,7 +22,7 @@ open space at the middle of an outer row), 85,258:
     x x x x x
 
 Given this numbering pattern, in descending order of number of
-solutions:
+solutions (based on which spot we leave open at the beginning):
 
             00
           01  02
@@ -55,8 +59,8 @@ A `Game` contains a `GameState` (which wraps a `Vec` of booleans to
 represent the state of each position on the board) as well as a
 `LegalMoves` struct, which contains a `Vec` of the same size that
 defines the rules of that game. Each of these is validated to assure
-that it contain a triangular number of positions and are the state and
-legal moves structures are the size as one another.
+that it contains a triangular number of positions and are the state and legal
+moves structures are the size as one another.
 
 The positions on the board are the indices in each of those structures.
 A board is numbered like the diagram above (although it can be any

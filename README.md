@@ -1,5 +1,4 @@
-Golf Tee Game
-=============
+# Golf Tee Game
 
 Solver for
 
@@ -9,8 +8,28 @@ This is not yet set up for a good UI experience. You need to edit the `main.rs`
 file to choose what functionality to use. It’s currently set up to give you all
 winning games starting with a vertex open.
 
-Interesting things I’ve learned
--------------------------------
+## Usage
+
+Clone the repo.
+
+```bash
+git clone https://github.com/Ethan826/golf_tee_game.git
+```
+
+Install Rust.
+
+```bash
+curl https://sh.rustup.rs -sSf | sh
+```
+
+Compile and run.
+
+```bash
+cd golf_tee_game
+cargo run --release
+```
+
+## Interesting things I’ve learned
 
 There are the most solutions are for this kind of game (starting with an open
 space at the middle of an outer row), 85,258:
@@ -30,10 +49,10 @@ solutions (based on which spot we leave open at the beginning):
       06  07  08  09
     10  11  12  13  14
 
--   Middle of outside row (3, 5, 12): 85,258 solutions.
--   Vertex of the board (0, 10, 14): 29,760 solutions.
--   One in from the vertex (1, 2, 6, 9, 11, 13): 14,880 solutions.
--   Interior of the board (4, 7, 8): 1,550 solutions.
+- Middle of outside row (3, 5, 12): 85,258 solutions.
+- Vertex of the board (0, 10, 14): 29,760 solutions.
+- One in from the vertex (1, 2, 6, 9, 11, 13): 14,880 solutions.
+- Interior of the board (4, 7, 8): 1,550 solutions.
 
 If all you want is a single usable solution, here’s one chosen
 arbitrarily. Start with spot 0 empty, then
@@ -52,8 +71,7 @@ arbitrarily. Start with spot 0 empty, then
 12. Jump tee at position 12 over position 7 to position 3
 13. Jump tee at position 3 over position 1 to position 0
 
-Design
-------
+## Design
 
 A `Game` contains a `GameState` (which wraps a `Vec` of booleans to
 represent the state of each position on the board) as well as a
@@ -85,8 +103,7 @@ The `Game::solve()` method consumes the `Game` and returns a
 solutions to that game. It is a simple breadth-first search
 implementation.
 
-TODO
-----
+## TODO
 
 If I continue to work on this, I will optimize by memoizing the
 traversals performed so far, then detecting symmetries and returning the

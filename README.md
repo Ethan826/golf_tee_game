@@ -4,10 +4,6 @@ Solver for
 
 ![golf tee game image](http://i.imgur.com/5eCYvIy.jpg)
 
-This is not yet set up for a good UI experience. You need to edit the `main.rs`
-file to choose what functionality to use. It’s currently set up to give you all
-winning games starting with a vertex open.
-
 ## Usage
 
 Clone the repo.
@@ -19,14 +15,33 @@ git clone https://github.com/Ethan826/golf_tee_game.git
 Install Rust.
 
 ```bash
-curl https://sh.rustup.rs -sSf | sh
+$> curl https://sh.rustup.rs -sSf | sh
 ```
 
 Compile and run.
 
 ```bash
-cd golf_tee_game
-cargo run --release
+$> cd golf_tee_game
+$> cargo run --release -- --help
+```
+
+There are two subcommands: `count` and `solutions`. The first (required)
+argument is the space to leave open at the beginning of the game. The next
+argument is the subcommand.
+
+```bash
+$> cargo run --release -- 3 count
+Starting from position 3, there are 85258 solutions.
+```
+
+```bash
+$> cargo run --release -- 7 solutions
+Begin solution 1 of 1550
+=============================
+
+Jump tee at position 2 over position 4 to position 7
+Jump tee at position 9 over position 5 to position 2
+...
 ```
 
 ## Interesting things I’ve learned
